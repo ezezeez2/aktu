@@ -339,5 +339,20 @@ def test():
             result[url] = str(e)
 
     return result
+
+@app.route("/dns")
+def dns():
+    import socket
+
+    try:
+        return {
+            "hostname": "oneview.aktu.ac.in",
+            "ip": socket.gethostbyname("oneview.aktu.ac.in")
+        }
+    except Exception as e:
+        return {
+            "error": str(e)
+        }
+        
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
