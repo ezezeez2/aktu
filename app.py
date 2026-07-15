@@ -323,7 +323,7 @@ def test():
     import requests
 
     try:
-        r = requests.get("https://oneview.aktu.ac.in", timeout=10)
+        r = requests.get("https://oneview.aktu.ac.in", timeout=100)
         return str(r.status_code)
     except Exception as e:
         return str(e)
