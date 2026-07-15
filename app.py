@@ -322,10 +322,22 @@ def fetch_result():
 def test():
     import requests
 
-    try:
-        r = requests.get("https://oneview.aktu.ac.in", timeout=100)
-        return str(r.status_code)
-    except Exception as e:
-        return str(e)
+    result = {}
+
+    for url in [
+        "https://www.google.com",
+        "https://github.com",
+        "https://oneview.aktu.ac.in"
+    ]:
+        try:
+            r = requests.get(url, timeout=10)
+            result[url] = {
+                "status": r.status_code,
+                "length": len(r.text)
+            }
+        except Exception as e:
+            result[url] = str(e)
+
+    return result
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
