@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#15803d">
+    <title>AKTU Result - Premium ResultDesk</title>
+
+    <meta name="description" content="AKTU ResultDesk: A premium, instant search and analytics dashboard for APJ Abdul Kalam Technical University (AKTU) students.">
+    <meta name="robots" content="index, follow">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ==========================================================================
+           AKTU OneView Elite - Premium Stylesheet
+           ========================================================================== */
+        :root {
+            --bg-color: #f6f9f4;
+            --bg-main: #ffffff;
+            --card-bg: #ffffff;
+            --card-border: #dde7dc;
+            --primary: #15803d;
+            --primary-hover: #116932;
+            --text-main: #12261b;
+            --text-muted: #5c6b61;
+            --success: #15803d;
+            --success-bg: rgba(21, 128, 61, 0.12);
+            --danger: #dc2626;
+            --danger-bg: rgba(220, 38, 38, 0.1);
+            --warning: #b45309;
+            --warning-bg: rgba(217, 119, 6, 0.12);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-pill: 50px;
+            --transition: all 0.3s ease-in-out;
+            --btn-secondary-bg: #f0f4ef;
+            --btn-secondary-border: #dde7dc;
+            --table-hover: rgba(21, 128, 61, 0.03);
+            --status-bg: #f0f4ef;
+            --status-border: #dde7dc;
+            --input-bg: #ffffff;
+            --input-border: #cdd9cb;
+            --shadow-sm: 0 1px 2px rgba(18, 38, 27, 0.06);
+            --shadow-md: 0 6px 18px rgba(18, 38, 27, 0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { overflow-x: hidden; scrollbar-gutter: stable; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            line-height: 1.5;
+            transition: var(--transition);
+        }
+
+        .hidden { display: none !important; }
+
+        .card.glass {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+        }
+
+        .app-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .main-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 3rem; }
+        .logo { display: flex; align-items: center; gap: 0.75rem; }
+        .logo-icon { font-size: 2.25rem; color: var(--primary); }
+        .logo-text { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.75rem; font-weight: 800; letter-spacing: -0.5px; }
+        .logo-highlight { color: var(--primary); }
+        .main-content { flex-grow: 1; }
+
+        .btn-primary, .btn-secondary {
+            display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+            padding: 0.875rem 1.75rem; border-radius: var(--radius-sm); font-weight: 600;
+            cursor: pointer; transition: var(--transition); border: none; font-size: 0.95rem;
+        }
+        .btn-primary { background: var(--primary); color: #ffffff; }
+        .btn-primary:hover { background: var(--primary-hover); transform: translateY(-1px); }
+        .btn-primary:disabled { background: var(--btn-secondary-bg); color: var(--text-muted); cursor: not-allowed; }
+
+        /* Search Section */
+        .search-section { padding: 3rem 2.5rem; max-width: 750px; margin: 1rem auto 4rem; text-align: center; }
+        .search-header h2 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.25rem; font-weight: 800; margin-bottom: 0.75rem; }
+        .search-header p { color: var(--text-muted); max-width: 600px; margin: 0 auto 2.5rem; }
+        .search-form { display: flex; flex-direction: column; align-items: center; gap: 1.25rem; max-width: 450px; margin: 0 auto; }
+        .input-wrapper { position: relative; width: 100%; }
+        .input-icon { position: absolute; left: 1.25rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
+        .search-form input {
+            width: 100%; padding: 0.875rem 1rem 0.875rem 3rem; background: var(--input-bg);
+            border: 1px solid var(--input-border); border-radius: var(--radius-sm);
+            font-size: 1rem; outline: none; transition: var(--transition);
+        }
+        .search-form input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(21, 128, 61, 0.25); }
+        .search-submit-btn { width: 100%; }
+
+        /* Loading & Errors */
+        .loading-section, .error-section { padding: 3.5rem; max-width: 550px; margin: 1rem auto 4rem; text-align: center; }
+        .spinner-container { width: 50px; height: 50px; position: relative; margin: 0 auto 1.5rem; }
+        .double-bounce1, .double-bounce2 {
+            width: 100%; height: 100%; border-radius: 50%; background-color: var(--primary);
+            opacity: 0.6; position: absolute; top: 0; left: 0; animation: bounce 2.0s infinite ease-in-out;
+        }
+        .double-bounce2 { animation-delay: -1.0s; }
+        @keyframes bounce { 0%, 100% { transform: scale(0.0); } 50% { transform: scale(1.0); } }
+
+        .progress-bar { width: 100%; height: 6px; background: rgba(18, 38, 27, 0.08); border-radius: 10px; overflow: hidden; margin-bottom: 2rem; }
+        .progress-fill { width: 5%; height: 100%; background: var(--primary); transition: width 0.4s ease-out; }
+        .loading-steps { list-style: none; text-align: left; max-width: 320px; margin: 0 auto; display: flex; flex-direction: column; gap: 0.75rem; }
+        .step { display: flex; align-items: center; gap: 0.75rem; color: var(--text-muted); }
+        .step.active { color: var(--primary); font-weight: 500; }
+        .step.completed { color: var(--success); }
+
+        .error-icon-wrapper {
+            width: 60px; height: 60px; border-radius: 50%; background: var(--danger-bg); border: 1px solid var(--danger);
+            color: var(--danger); display: flex; align-items: center; justify-content: center; font-size: 1.75rem; margin: 0 auto 1rem;
+        }
+
+        /* Dashboard & Profiles */
+        .dashboard-section { display: flex; flex-direction: column; gap: 1.5rem; }
+        .dashboard-header-actions { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.25rem; width: 100%; }
+
+        .student-profile { padding: 2rem; }
+        .profile-header { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--card-border); padding-bottom: 1.5rem; margin-bottom: 1.5rem; }
+        .profile-title h2 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.35rem; }
+
+        .profile-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; overflow: hidden; transition: max-height 0.3s ease; }
+        .profile-grid.collapsed { max-height: 0; opacity: 0; pointer-events: none; }
+        .profile-grid.expanded { max-height: 600px; opacity: 1; }
+
+        .info-item { display: flex; flex-direction: column; gap: 0.35rem; }
+        .info-label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; }
+        .info-value { font-size: 1rem; font-weight: 500; }
+
+        .selector-container { margin-top: 1rem; }
+        .sem-select { padding: 0.75rem; width: 220px; border-radius: var(--radius-sm); border: 1px solid var(--card-border); }
+
+        .semester-details { padding: 2rem; }
+        .sem-details-header { display: flex; justify-content: space-between; margin-bottom: 1.5rem; border-bottom: 1px solid rgba(18,38,27,0.08); padding-bottom: 1.25rem; }
+        .sem-metrics { display: flex; gap: 0.75rem; }
+        .sem-badge { background: var(--status-bg); border: 1px solid var(--status-border); padding: 0.35rem 0.75rem; border-radius: var(--radius-sm); font-size: 0.8rem; font-weight: 600; }
+
+        .subjects-table { width: 100%; border-collapse: collapse; text-align: left; }
+        .subjects-table th, .subjects-table td { padding: 1rem; border-bottom: 1px solid var(--card-border); }
+        .subjects-table th { color: var(--text-muted); }
+        .text-center { text-align: center; }
+        .carry-over { background: rgba(239, 68, 68, 0.03); }
+
+        /* Print formatting */
+        @media print {
+            body { background: #fff !important; color: #000 !important; }
+            .search-section, .loading-section, .main-header, .dashboard-header-actions, .selector-container, .app-footer { display: none !important; }
+            .card { border: none !important; box-shadow: none !important; }
+        }
+
+        /* Buttons & Extras */
+        .btn-back, .btn-print-action, .btn-api-link {
+            padding: 0.5rem 1rem; border-radius: var(--radius-sm); border: 1px solid var(--btn-secondary-border); cursor: pointer;
+            background: var(--btn-secondary-bg); font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem;
+        }
+
+        .landing-extra { max-width: 1050px; margin: 0 auto; padding: 3rem 0; text-align: center; }
+        .section-eyebrow { font-family: monospace; color: var(--primary); text-transform: uppercase; }
+        .feature-grid, .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+        .step-card, .feature-card { padding: 1.5rem; text-align: left; background: #fff; border: 1px solid var(--card-border); border-radius: var(--radius-md); }
+
+        .app-footer { text-align: center; padding: 2rem 0; font-size: 0.85rem; color: var(--text-muted); }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Main Header -->
+        <header class="main-header">
+            <div class="logo">
+                <i class="fa-solid fa-graduation-cap logo-icon"></i>
+                <span class="logo-text">AKTU <span class="logo-highlight">ResultDesk</span></span>
+            </div>
+            <a href="/api.html" id="apiBtn" class="btn-api-link" aria-label="API Access">
+                <i class="fa-solid fa-code"></i> <span>API</span>
+            </a>
+        </header>
+
+        <main class="main-content">
+            <!-- Search & Control Panel -->
+            <section class="search-section card glass">
+                <div class="search-header">
+                    <h2>AKTU Result Tool</h2>
+                    <p>Enter your AKTU University Roll Number to get your result instantly without DOB verification.</p>
+                </div>
+
+                <form id="searchForm" class="search-form">
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-id-card input-icon"></i>
+                        <input type="text" id="rollNoInput" placeholder="Roll Number" autocomplete="off" required maxlength="20" inputmode="numeric" pattern="[0-9]*">
+                    </div>
+                    <button type="submit" id="searchBtn" class="btn-primary search-submit-btn">
+                        <span>Get Result</span>
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </form>
+            </section>
+
+            <!-- Loading Indicator Panel -->
+            <section id="loadingSection" class="loading-section card glass hidden">
+                <div class="spinner-container">
+                    <div class="double-bounce1"></div>
+                    <div class="double-bounce2"></div>
+                </div>
+                <h2 id="loadingText">Connecting to portal...</h2>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <ul class="loading-steps" id="loadingSteps">
+                    <li class="step pending" data-step="1"><i class="fa-regular fa-circle"></i> Establishing session</li>
+                    <li class="step pending" data-step="2"><i class="fa-regular fa-circle"></i> Verifying student record</li>
+                    <li class="step pending" data-step="3"><i class="fa-regular fa-circle"></i> Bypassing security</li>
+                    <li class="step pending" data-step="4"><i class="fa-regular fa-circle"></i> Parsing marksheet</li>
+                </ul>
+            </section>
+
+            <!-- Error Banner Panel -->
+            <section id="errorSection" class="error-section card glass hidden">
+                <div class="error-icon-wrapper">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+                <div class="error-info">
+                    <h2>Retrieval Failed</h2>
+                    <p id="errorText">Unable to query roll number. Please verify and try again.</p>
+                </div>
+                <button type="button" class="btn-secondary" id="errorRetryBtn">Dismiss</button>
+            </section>
+
+            <!-- Results Dashboard Panel -->
+            <section id="dashboardSection" class="dashboard-section hidden">
+                <div class="dashboard-header-actions">
+                    <button type="button" id="backBtn" class="btn-back">
+                        <i class="fa-solid fa-arrow-left"></i> <span>Back</span>
+                    </button>
+                    <button type="button" id="printBtn" class="btn-print-action">
+                        <i class="fa-solid fa-print"></i> <span>Print</span>
+                    </button>
+                </div>
+
+                <!-- Student Profile Card -->
+                <div class="student-profile card glass">
+                    <div class="profile-header">
+                        <div class="profile-title">
+                            <h2 id="studentName">Student Name</h2>
+                        </div>
+                    </div>
+
+                    <div class="profile-grid expanded">
+                        <div class="info-item">
+                            <span class="info-label">Roll Number</span>
+                            <span class="info-value" id="studentRollNo">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Father's Name</span>
+                            <span class="info-value" id="studentFatherName">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Institute / College</span>
+                            <span class="info-value" id="studentInstitute">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Course / Branch</span>
+                            <span class="info-value" id="studentCourseBranch">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Enrollment Number</span>
+                            <span class="info-value" id="studentEnrollNo">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Semester Selector Dropdown -->
+                <div class="selector-container">
+                    <select id="semSelect" class="sem-select">
+                        <!-- Dynamically loaded options -->
+                    </select>
+                </div>
+
+                <!-- Selected Semester Marksheet Details -->
+                <div class="semester-details card glass" id="semDetailsContainer">
+                    <div class="sem-details-header">
+                        <div>
+                            <h3 id="semTitle">Semester Results</h3>
+                            <p id="semMeta">Session Name</p>
+                        </div>
+                        <div class="sem-metrics">
+                            <div class="sem-badge" id="semSgpaBadge">SGPA: -</div>
+                            <div class="sem-badge" id="semResultBadge">Status: -</div>
+                            <div class="sem-badge" id="semMarksBadge">Obtained: -</div>
+                        </div>
+                    </div>
+
+                    <!-- Subjects Sheet -->
+                    <div class="table-container">
+                        <table class="subjects-table" id="subjectsTable">
+                            <thead>
+                                <tr>
+                                    <th>Code</th>
+                                    <th>Subject Description</th>
+                                    <th class="text-center">Internal</th>
+                                    <th class="text-center">External</th>
+                                    <th class="text-center">Grade</th>
+                                </tr>
+                            </thead>
+                            <tbody id="subjectsBody">
+                                <!-- Dynamically loaded subjects -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="sem-details-footer">
+                        <span id="semDeclarationDate">Declared on: -</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="app-footer">
+            <p>This is a student-built project and is not affiliated with Dr. A.P.J. Abdul Kalam Technical University (AKTU) or any official organization.</p>
+        </footer>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const toTitleCase = (str) => {
+            if (!str) return '';
+            return str.toLowerCase().replace(/\b\w/g, char => char.toUpperCase());
+        };
+
+        const searchForm = document.getElementById('searchForm');
+        const rollNoInput = document.getElementById('rollNoInput');
+        const searchBtn = document.getElementById('searchBtn');
+
+        const loadingSection = document.getElementById('loadingSection');
+        const loadingText = document.getElementById('loadingText');
+        const progressFill = document.getElementById('progressFill');
+        const loadingSteps = document.getElementById('loadingSteps');
+
+        const errorSection = document.getElementById('errorSection');
+        const errorText = document.getElementById('errorText');
+        const errorRetryBtn = document.getElementById('errorRetryBtn');
+
+        const dashboardSection = document.getElementById('dashboardSection');
+        const searchSection = document.querySelector('.search-section');
+
+        const printBtn = document.getElementById('printBtn');
+        const backBtn = document.getElementById('backBtn');
+        const semSelect = document.getElementById('semSelect');
+
+        let resultData = null;
+        let loadingInterval = null;
+
+        rollNoInput.addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/[^0-9]/g, '');
+        });
+
+        function resetView() {
+            dashboardSection.classList.add('hidden');
+            loadingSection.classList.add('hidden');
+            errorSection.classList.add('hidden');
+            searchSection.classList.remove('hidden');
+
+            searchBtn.querySelector('span').textContent = 'Get Result';
+            resultData = null;
+            clearInterval(loadingInterval);
+
+            sessionStorage.removeItem('aktu_result_data');
+            sessionStorage.removeItem('aktu_selected_sem');
+
+            const lastRoll = sessionStorage.getItem('aktu_last_roll');
+            if (lastRoll) rollNoInput.value = lastRoll;
+            searchBtn.disabled = false;
+        }
+
+        function updateLoadingProgress(percentage, stepNum, text) {
+            progressFill.style.width = `${percentage}%`;
+            loadingText.textContent = text;
+
+            const steps = loadingSteps.querySelectorAll('.step');
+            steps.forEach(step => {
+                const stepId = parseInt(step.getAttribute('data-step'));
+                const icon = step.querySelector('i');
+                if (stepId < stepNum) {
+                    step.className = 'step completed';
+                    icon.className = 'fa-solid fa-circle-check';
+                } else if (stepId === stepNum) {
+                    step.className = 'step active';
+                    icon.className = 'fa-solid fa-circle-notch fa-spin';
+                } else {
+                    step.className = 'step pending';
+                    icon.className = 'fa-regular fa-circle';
+                }
+            });
+        }
+
+        async function executeSearch(rollNo) {
+            sessionStorage.setItem('aktu_last_roll', rollNo);
+            searchBtn.disabled = true;
+
+            searchSection.classList.add('hidden');
+            errorSection.classList.add('hidden');
+            loadingSection.classList.remove('hidden');
+
+            updateLoadingProgress(15, 1, 'Establishing secure session with AKTU server...');
+
+            let progress = 15;
+            let step = 1;
+            loadingInterval = setInterval(() => {
+                if (progress < 90) {
+                    progress += 2;
+                    progressFill.style.width = `${progress}%`;
+                }
+                if (progress >= 35 && step === 1) {
+                    step = 2;
+                    updateLoadingProgress(35, 2, 'Verifying roll number and pulling indexes...');
+                } else if (progress >= 65 && step === 2) {
+                    step = 3;
+                    updateLoadingProgress(65, 3, 'Retrieving result payload...');
+                }
+            }, 150);
+
+            try {
+                const response = await fetch('/api/fetch-result', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ rollNo })
+                });
+
+                const data = await response.json();
+                clearInterval(loadingInterval);
+
+                if (!response.ok) throw new Error(data.error || 'An error occurred while retrieving your records.');
+                if (data.dobRequired) throw new Error('This student profile is currently unavailable.');
+
+                updateLoadingProgress(95, 4, 'Formatting subject marksheet data...');
+
+                setTimeout(() => {
+                    loadingSection.classList.add('hidden');
+                    resultData = data;
+                    renderDashboard(data);
+                    sessionStorage.setItem('aktu_result_data', JSON.stringify(data));
+                }, 600);
+
+            } catch (err) {
+                clearInterval(loadingInterval);
+                console.error(err);
+
+                loadingSection.classList.add('hidden');
+                errorSection.classList.remove('hidden');
+                errorText.textContent = err.message || 'An unexpected error occurred.';
+                searchBtn.disabled = false;
+            }
+        }
+
+        searchForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const rollNo = rollNoInput.value.trim();
+            if (rollNo) await executeSearch(rollNo);
+        });
+
+        errorRetryBtn.addEventListener('click', resetView);
+        if (backBtn) backBtn.addEventListener('click', resetView);
+        printBtn.addEventListener('click', () => window.print());
+
+        semSelect.addEventListener('change', (e) => {
+            const idx = parseInt(e.target.value);
+            sessionStorage.setItem('aktu_selected_sem', idx);
+            if (resultData && resultData.semesters[idx]) {
+                renderSemesterDetails(resultData.semesters[idx]);
+            }
+        });
+
+        function renderDashboard(data) {
+            dashboardSection.classList.remove('hidden');
+            const { studentInfo, semesters } = data;
+
+            document.getElementById('studentName').textContent = toTitleCase(studentInfo.name) || 'N/A';
+            document.getElementById('studentRollNo').textContent = studentInfo.rollNo || 'N/A';
+            document.getElementById('studentEnrollNo').textContent = studentInfo.enrollmentNo || 'N/A';
+            document.getElementById('studentFatherName').textContent = toTitleCase(studentInfo.fatherName) || 'N/A';
+
+            const cleanCourse = studentInfo.course ? studentInfo.course.replace(/^\(\d+\)\s*/, '') : 'N/A';
+            const cleanBranch = studentInfo.branch ? studentInfo.branch.replace(/^\(\d+\)\s*/, '') : 'N/A';
+            document.getElementById('studentCourseBranch').textContent = `${cleanCourse} in ${cleanBranch}`;
+
+            const cleanInstitute = studentInfo.institute ? studentInfo.institute.replace(/^\(\d+\s*\)\s*/, '') : 'N/A';
+            document.getElementById('studentInstitute').textContent = cleanInstitute;
+
+            semSelect.innerHTML = '';
+            const cachedSemIdx = sessionStorage.getItem('aktu_selected_sem');
+            let defaultIdx = cachedSemIdx !== null ? parseInt(cachedSemIdx) : semesters.length - 1;
+            if (defaultIdx < 0 || defaultIdx >= semesters.length) defaultIdx = semesters.length - 1;
+
+            semesters.forEach((sem, idx) => {
+                const option = document.createElement('option');
+                option.value = idx;
+                option.textContent = `Semester ${sem.semester}`;
+                if (idx === defaultIdx) option.selected = true;
+                semSelect.appendChild(option);
+            });
+
+            if (semesters.length > 0) {
+                renderSemesterDetails(semesters[defaultIdx]);
+            }
+        }
+
+        function renderSemesterDetails(sem) {
+            document.getElementById('semTitle').textContent = `Semester ${sem.semester} Marksheet`;
+            document.getElementById('semMeta').textContent = `Session: ${sem.session} | Even/Odd: ${sem.evenOdd}`;
+
+            const sgpaBadge = document.getElementById('semSgpaBadge');
+            sgpaBadge.textContent = `SGPA: ${sem.sgpa}`;
+            sgpaBadge.style.color = sem.sgpa !== 'N/A' ? 'var(--success)' : 'var(--text-muted)';
+
+            const resultBadge = document.getElementById('semResultBadge');
+            resultBadge.textContent = `Status: ${sem.resultStatus}`;
+
+            if (sem.resultStatus && sem.resultStatus.toUpperCase().includes('PASS')) {
+                resultBadge.style.backgroundColor = 'var(--success-bg)';
+                resultBadge.style.color = 'var(--success)';
+            } else if (sem.resultStatus && sem.resultStatus.toUpperCase().includes('FAIL')) {
+                resultBadge.style.backgroundColor = 'var(--danger-bg)';
+                resultBadge.style.color = 'var(--danger)';
+            } else {
+                resultBadge.style.backgroundColor = 'var(--warning-bg)';
+                resultBadge.style.color = 'var(--warning)';
+            }
+
+            document.getElementById('semMarksBadge').textContent = `Obtained: ${sem.totalMarksObt || 'N/A'}`;
+            document.getElementById('semDeclarationDate').textContent = `Declared on: ${sem.declarationDate || 'N/A'}`;
+
+            const subjectsBody = document.getElementById('subjectsBody');
+            subjectsBody.innerHTML = '';
+
+            sem.subjects.forEach(sub => {
+                const tr = document.createElement('tr');
+                const isBack = sub.backPaper && sub.backPaper.trim() !== '--' && sub.backPaper.trim() !== '';
+                if (isBack) tr.className = 'carry-over';
+
+                tr.innerHTML = `
+                    <td><strong>${sub.code}</strong></td>
+                    <td>${sub.name}</td>
+                    <td class="text-center">${sub.internal || '--'}</td>
+                    <td class="text-center">${sub.external || '--'}</td>
+                    <td class="text-center"><strong>${sub.grade || '--'}</strong></td>
+                `;
+                subjectsBody.appendChild(tr);
+            });
+        }
+    });
+    </script>
+</body>
+</html>
